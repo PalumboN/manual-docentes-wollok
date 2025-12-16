@@ -8,6 +8,7 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
 - Introducción
   - ¿Por qué Wollok?
   - Un poco de historia
+  - Objetivos de este manual
 - Módulo 1: Objetos y Mensajes
   - Clase 1: ¡Hola Pepita!
   - Clase 2: Polimorfismo vs Ifs
