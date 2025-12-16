@@ -1,6 +1,6 @@
 # Manual para docentes de Wollok
 
-Este manual propone una secuencia didáctica para enseñar con **programación orientada a objetos** [Wollok](https://wollok.org).
+Este manual propone una secuencia didáctica para enseñar **programación orientada a objetos** con [Wollok](https://wollok.org).
 
 Esta es una recopilación de varios cursos dictados en distintas **universidades** para materias iniciales de programación.
 
