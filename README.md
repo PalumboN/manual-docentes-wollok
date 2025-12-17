@@ -6,7 +6,7 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
 
 ## Índice
 - Introducción
-  - ¿Por qué Wollok?
+  - [¿Por qué Wollok?](/por-que-wollok.md)
   - Un poco de historia
   - Objetivos de este manual
 - Módulo 1: Objetos y Mensajes
