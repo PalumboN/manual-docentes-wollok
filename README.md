@@ -2,13 +2,13 @@
 
 Este manual propone una secuencia didáctica para enseñar **programación orientada a objetos** con [Wollok](https://wollok.org).
 
-Esta es una recopilación de varios cursos dictados en distintas **universidades** para materias iniciales de programación.
+Esta es una recopilación de varios cursos dictados en distintas **universidades** de Argentina para materias iniciales de programación.
 
 ## Índice
 - Introducción
-  - [¿Por qué Wollok?](/por-que-wollok.md)
-  - Un poco de historia
-  - Objetivos de este manual
+  - [¿Por qué Wollok?](por-que-wollok.md)
+  - [Un poco de historia](historia-de-wollok.md)
+  - [Objetivos de este manual](objetivos-del-manual.md)
 - Módulo 1: Objetos y Mensajes
   - Clase 1: ¡Hola Pepita!
   - Clase 2: Polimorfismo vs Ifs
@@ -22,11 +22,14 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
 - Módulo 3: Clases
   - Clase 9: Objetos con el mismo Comportamiento
   - Clase 10: Ciclo de Vida de un Objeto
-  - Clase 11: Clases vs Objetos Autodefinidos
     > Mutable vs Inmutable?  
+  - Clase 11: Clases Y Objetos Autodefinidos
 - Módulo 4: Herencia
   - Clase 12: Casos más Particulares
   - Clase 13: Algo en común, pero no todo
   - Clase 14: Herencia vs Composición
   - Clase 15: Manejando Excepciones propias
 - Módulo 5: Mixines?
+- Apéndices
+  - Ejercicios integradores
+  - Evaluaciones teóricas
