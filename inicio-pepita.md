@@ -12,7 +12,7 @@ Nuestro favorito (e insignia de Wollok) es Pepita...
 
 ## Hola Pepita
 
-> TODO: Buscar un repo con el ejercicio inicial: `vola(kms)` y `come(comida)`
+> #TODO: Buscar un repo con el ejercicio inicial: `vola(kms)` y `come(comida)`
 
 Presentamos los requerimientos del ejercicio: 
 
@@ -50,13 +50,19 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
 
 ### Objetos y Referencias
 
-Decimos que acá, **un _programa_ está compuesto por _objetos_ que se conocen por medio de _referencias_**.
-En el diagrama se ven los objetos vivos con sus _atributos_: referencias que el objeto conocen.
 
-Los objetos son círculos y las referencias son flechas que apuntan siempre a uno de los círculos.
+- Definición de programa en objetos.
+  > Un _programa Wollok_ está compuesto por _objetos_ que se conocen por medio de _referencias_.
 
-En este ejemplo, _pepita conoce al 100 por medio de la referencia `energia`_.
-De forma análoga, _el alpiste conoce al 70 a través de la referencia `granos`_.
+- Explicación de _diagrama dinámico_.
+  > Los objetos son círculos y las referencias son flechas que apuntan siempre a uno de los círculos.
+  > El diagrama muestra los objetos vivos con sus _atributos_: referencias que el objeto conoce.
+  > Las flechas tienen un nombre.
+
+- Explicación del ejemplo.
+  > pepita conoce al 100 por medio de la referencia`energia`.
+  > el alpiste conoce al 70 a través de la referencia `granos`.
+  > Los número
 
 ¡El 100, el 70, y todos los números, también son objetos! 
 Al igual que _pepita_, _manzana_ y _alpiste_, declarados por nosotros.
