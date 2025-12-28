@@ -61,7 +61,7 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
 - Explicación del ejemplo:
   - pepita conoce al 100 por medio de la referencia `energia`.
   - El alpiste conoce al 70 a través de la referencia `granos`.
-  - Los números también son objetos (que vienen con el lenguaje), por eso son círculos.
+  - Los números, que son círculos, también son objetos (que vienen con el lenguaje, por eso tienen otro color).
   - Existen referencias variables: que cambian el objeto al que apuntan a través del tiempo. O **constantes 🔒**: que siempre apuntan al mismo objeto.
 
 - Algunas preguntas para hacer:
