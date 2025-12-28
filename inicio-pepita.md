@@ -50,61 +50,88 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
 
 ### Objetos y Referencias
 
+- Definición de programa en objetos:
+  - "Un _programa Wollok_ está compuesto por _objetos_ que se conocen por medio de _referencias_".
 
-- Definición de programa en objetos.
-  > Un _programa Wollok_ está compuesto por _objetos_ que se conocen por medio de _referencias_.
+- Explicación de _diagrama dinámico_:
+  - Los objetos son círculos y las referencias son flechas que apuntan siempre a uno de los círculos.
+  - El diagrama muestra los objetos vivos con sus _atributos_: referencias que el objeto conoce.
+  - Las flechas tienen un nombre.
 
-- Explicación de _diagrama dinámico_.
-  > Los objetos son círculos y las referencias son flechas que apuntan siempre a uno de los círculos.
-  > El diagrama muestra los objetos vivos con sus _atributos_: referencias que el objeto conoce.
-  > Las flechas tienen un nombre.
+- Explicación del ejemplo:
+  - pepita conoce al 100 por medio de la referencia `energia`.
+  - El alpiste conoce al 70 a través de la referencia `granos`.
+  - Los números también son objetos (que vienen con el lenguaje), por eso son círculos.
+  - Existen referencias variables: que cambian el objeto al que apuntan a través del tiempo. O **constantes 🔒**: que siempre apuntan al mismo objeto.
 
-- Explicación del ejemplo.
-  > pepita conoce al 100 por medio de la referencia`energia`.
-  > el alpiste conoce al 70 a través de la referencia `granos`.
-  > Los número
-
-¡El 100, el 70, y todos los números, también son objetos! 
-Al igual que _pepita_, _manzana_ y _alpiste_, declarados por nosotros.
-
-Las referencias pueden ser **variables** (que cambian el objeto al que apuntan a través del tiempo), o **constantes** (que siempre apuntan al mismo objeto).
-En el diagrama, las constantes aparecen con un candado 🔒, como en el caso de `granos`.
-
-Para que una referencia cambie, hay que pedírselo al objeto que la posee (de dónde sale la flecha) **enviándole un mensaje**.
+- Algunas preguntas para hacer:
+  - ¿La manzana conoce al alpiste?
+  - ¿El alpiste conoce a alguien como su `energia`?
+  - ¿Pepita conoce al 70?
 
 
 ### Envío de mensajes
 
-Decimos que: "Los objetos se conocen por medio de referencias y se mandan **mensajes** para comunicarse entre sí".
+- Seguimos definiendo un programa en objetos:
+  - "Los objetos se conocen por medio de referencias y se mandan **mensajes** para comunicarse entre sí".
 
-Y luego le envíamos un mensaje a pepita por la consola:
+Le envíamos un mensaje a pepita por la consola:
+
 ```bash
 > pepita.estaCansada()
 ✓ false
 ```
 
-> Una buena didáctica en este punto es preguntar: "¿qué piensan que está pasando?"
-> Seguramente lo relacionen con el método de pepita: `method estaCansada() = energia < 50`
-> Como la energía de pepita es 100, que NO es menor a 50, entonces es _falso_ que está cansada.
+- Consultar la intuición / lógica. Preguntar: "¿qué piensan que está pasando?"
+  - La idea es relacionarlo con `method estaCansada() = energia < 50`.
+  - Lógicamente: la energía de pepita es 100, que NO es menor a 50, entonces es _falso_ que está cansada.
 
-Luego de un poco de debate para romper el hielo, damos una definición de lo que está pasando: le estamos mandando el mensaje `estaCansada()` al objeto `pepita`. 
+- Explicación de la expresión `pepita.estaCansada()`
+  - le estamos mandando el mensaje `estaCansada()` al objeto `pepita`. 
+  - Sintaxis `objeto.mensaje()`. Siempre es _objeto_, seguido de punto `.`, y luego el mensaje _terminado en paréntesis_ para pasar parámetros (como veremos en un rato).
 
-_Atención a la sintaxis_: siempre es _objeto_, seguido de punto `.`, y luego el mensaje _terminado en paréntesis_ para pasar parámetros (como veremos en un rato).
-
-**Cuando un objeto recibe un _mensaje_, ejecuta el _método_ que tenga la misma _firma_** (en Wollok, que tenga el mismo nombre y cantidad de parámetros).
-
-Es importante resaltar la diferencia entre **mensaje y método**: el mensaje se le envía a un objeto para que "pase algo", mientras el método es la definición de ese "algo que debe pasar".
-
-Una buena forma de mostrar que NO son la misma cosa es enviando un mensaje que no se entienda:
-
+- Mensaje y método
+  - **Método _lookup_**: Cuando un objeto recibe un _mensaje_, ejecuta el _método_ que tenga la misma _firma_ (en Wollok, que tenga el mismo nombre y cantidad de parámetros).
+  - Diferencia entre mensaje y método: el mensaje se le envía a un objeto para que "pase algo", mientras el método es la definición de ese "algo que debe pasar".
+  > Una buena forma de mostrar que NO son la misma cosa es enviando un mensaje que no se entienda:
 ```bash
 > pepita.algoQueNoEntiende()
 ✗ Evaluation Error! pepita does not understand algoQueNoEntiende()
 ```
+  - Cuando un objeto recibe un mensaje que no entiende se produce un **error**. En este ejemplo, le estamos pidiendo a pepita algo que no entiende.
 
-Acá el programa produce un **error**, ya que le estamos pidiendo a pepita algo que no entiende.
+- Jugar en la consola (#TODO: hacer después?)
+  - Decir que los chirimbolos también son mensajes `+ - *` que entienden los números.
+  - Evaluar algunas expresiones para mostrar los objetos números, booleanos, strings:
+    - `1 + 2` `1 > 2`
+    - `true || false`
+    - `"hola " + "mundo"`
 
 
 ### Métodos de acción _vs_ de consulta
 
-TOCONTINUE....
+#### Preguntas gatillo
+
+> ¿Qué habría que hacer para que pepita esté cansada?
+
+_Respuesta_: hacer que su atributo `energia` apunte a un objeto menor que 50.
+
+> ¿Y cómo podemos cambiar la referencia `energia`?
+
+_Respuesta_: Hay que pedírselo al objeto que la posee (de dónde sale la flecha) **enviándole un mensaje**.
+
+> ¿Qué otros mensajes le podemos enviar a pepita?
+
+_Respuesta_: `vola(kms)` y `come(comida)`
+
+Le enviamos el mensaje `vola(kms)` para que baje su energía.
+_¡Recordá tener visible el diagrama, y de prestar atención a lo que pasa justo cuando mandamos el mensaje!_
+
+```bash
+> pepita.vola(10)
+✓
+```
+<img width="450" height="329" alt="image" src="https://github.com/user-attachments/assets/6d6ac85e-a28f-4d37-b7a6-dda4ce8be9c0" />
+
+
+
