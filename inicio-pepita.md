@@ -74,6 +74,7 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
 
 - Seguimos definiendo un programa en objetos:
   - "Los objetos se conocen por medio de referencias y se mandan **mensajes** para comunicarse entre sí".
+  
 
 Le envíamos un mensaje a pepita por la consola:
 
@@ -109,6 +110,10 @@ Le envíamos un mensaje a pepita por la consola:
 
 
 ## 3. Métodos 
+
+- Seguimos definiendo qué es un objeto:
+  - Un objeto tiene un **estado** interno definido por sus atributos (los objetos que conoce) y un **comportamiento** definido por sus métodos.
+
 
 #### Preguntas gatillo
 
@@ -146,17 +151,59 @@ _¡Recordá tener visible el diagrama, y de prestar atención a lo que pasa just
     - Si esperamos que un mensaje sea de consulta, que no tenga efecto.
     - Si esperamos que un mensaje tenga efecto, que no devuelva nada.
 
-- Sintaxis (inline vs return)
+- Sintaxis
   - Métodos de consulta
     - Inline (con el `=`): `method estaCansada() = energia < 50`
     - Con llaves `{ }` y `return`: `method estaCansada() { return energia < 50 }`
+  - Métodos de acción
+    - Siempre con llaves `{ }` y ~~casi~~ nunca con `return`
 
 #### Extra simpático
 
 - Viendo el diagrama, volar lo necesario para que pepita quede con 70 de energía y _sorprenderse_ al vez que tanto `energia` como `gramos` apuntan al mismo objeto.
 
+- Hacer que la energía quede por debajo de 50 y volverle a preguntar `pepita.estaCansada()`
+
 
 ## 4. Polimorfismo
 
+- Seguimos definiendo cómo se usa un objeto:
+  - Los mensajes que se le manda a un objeto definen una **interfaz**.
+
 #### Preguntas gatillo
 
+> El método `come(comida)`, ¿es de acción o de consulta?
+
+_Respuesta_: acción. No devuelve nada, esperamos que cambie la energía de pepita.
+
+> ¿Y qué objetos espera por parámetro?
+
+_Respuesta_: una comida, como la manzana o el alpiste.
+
+Hacer que pepita coma ambas comidas, ver el efecto que tiene.
+
+```bash
+> pepita.come(manzana)
+✓
+> pepita.come(alpiste)
+✓
+```
+
+<img width="448" height="317" alt="image" src="https://github.com/user-attachments/assets/ccf4b125-e612-4381-8c8e-7a101e06a910" />
+
+- Seguir la cadena de mensajes en cada caso: `pepita.come/1` -> `comida.energia/0`
+  - Entender qué método `energia()` se ejecuta en cada caso
+  - Usar el [debugger](#TODO) para una mejor experiencia
+
+#### Pregunta gatillo
+
+> Si queremos que pepita pueda comer kiwi, ¿qué cambios hay que hacer al programa?
+
+_Respuesta_: tiene que salir 2 cosas claves: meter un **nuevo objeto** `kiwi` que **entienda el mensaje** `energia()`.
+
+- Concepto de _interfaz_: para que un objeto sea una comida, tiene que entender el mensaje `energia()` y devolver un número.
+
+- Mencionar cómo se aprovecha el **polimorfismo**:
+  - Ahora pepita puede comer kiwi, pero no tuvimos que tocar a pepita. Extendimos el programa agregando un nuevo _comportamiento_.
+  - Los objetos contribuyen (intercambian mensajes) entre sí para producir distintos efectos: la energía aumenta distinta si se come la manzana o el alpiste.
+  - Si conocen el `if`, no hay ninguno en nuestra solución.
