@@ -10,9 +10,9 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
   - [Un poco de historia](historia-de-wollok.md)
   - [Objetivos de este manual](objetivos-del-manual.md)
 - Módulo 1: Objetos y Mensajes
-  - Clase 1: ¡Hola Pepita!
+  - Clase 1: [¡Hola Pepita!](inicio-pepita.md)
   - Clase 2: Polimorfismo vs Ifs
-  - Clase 3: Testeo Unitario
+  - Clase 3: Refactoring & Testing
   - Clase 4: ¿Lo guardo o lo calculo?
   - Clase 5: Bloques que mandan mensajes
 - Módulo 2: Colecciones y Excepciones
