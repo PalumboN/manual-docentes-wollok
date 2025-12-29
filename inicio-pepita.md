@@ -10,6 +10,12 @@ Nuestro favorito (e insignia de Wollok) es Pepita...
 1. Concepto de _asignación_ como "apuntar una referencia"
 1. Introducir un objeto _polimórfico_
 
+### Elementos del lenguaje
+- `object`
+- `var` y `const`
+- `method` (inline y asignación)
+- Envío de mensajes `.`
+
 ## Hola Pepita
 
 > #TODO: Buscar un repo con el ejercicio inicial: `vola(kms)` y `come(comida)`
