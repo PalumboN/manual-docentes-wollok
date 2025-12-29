@@ -5,10 +5,10 @@ Nuestro favorito (e insignia de Wollok) es Pepita...
 
 ### Objetivos de esta clase
 
-- Introducir los conceptos de _objetos_ y _referencias_
-- Tener una imagen visual del programa por medio del _diagrama dinámico_
-- Mandar _mensajes_ que se diferencian entre _acciones_ y _consultas_
-- Introducir un objeto _polimórfico_
+1. Tener una imagen visual de _objetos_ y _referencias_ por medio del _diagrama dinámico_
+1. Mandar _mensajes_ que se diferencian entre _acciones_ y _consultas_
+1. Concepto de _asignación_ como "apuntar una referencia"
+1. Introducir un objeto _polimórfico_
 
 ## Hola Pepita
 
@@ -48,7 +48,7 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
 <img width="446" height="338" alt="image" src="https://github.com/user-attachments/assets/4b4d3e67-8246-4851-b67b-bca46c04aff4" />
 
 
-### Objetos y Referencias
+## 1. Objetos y Referencias
 
 - Definición de programa en objetos:
   - "Un _programa Wollok_ está compuesto por _objetos_ que se conocen por medio de _referencias_".
@@ -70,7 +70,7 @@ Y lo levantamos en la [consola interactiva](https://www.wollok.org/tour/console)
   - ¿Pepita conoce al 70?
 
 
-### Envío de mensajes
+## 2. Envío de mensajes
 
 - Seguimos definiendo un programa en objetos:
   - "Los objetos se conocen por medio de referencias y se mandan **mensajes** para comunicarse entre sí".
@@ -108,7 +108,7 @@ Le envíamos un mensaje a pepita por la consola:
     - `"hola " + "mundo"`
 
 
-### Métodos de acción _vs_ de consulta
+## 3. Métodos 
 
 #### Preguntas gatillo
 
@@ -133,5 +133,30 @@ _¡Recordá tener visible el diagrama, y de prestar atención a lo que pasa just
 ```
 <img width="450" height="329" alt="image" src="https://github.com/user-attachments/assets/6d6ac85e-a28f-4d37-b7a6-dda4ce8be9c0" />
 
+- Definición de `method vola(kms) { energia = energia - kms }`
+  - El parámetro `kms` también es una _referencia_, que en `pepita.vola(10)` va a **apuntar** al 10.
+  - El _objeto apuntado_ por `energia` (un número) se le manda el _mensaje_ `-` con el _objeto apuntado_ por `kms`.
+    - El resultado se _asigna_ como la nueva `energia`, o sea que _esa referencia pasa a apuntar_ al resultado.
 
+- Acción vs Consulta
+  - Diferencias entre los mensajes `pepita.estaCansada()` y `pepita.vola(10)`:
+    - `estaCansada()` es de consuta -> devuelve un valor (objeto).
+    - `vola(kms)` es de acción (una orden, de forma imperativa) -> cambia (tiene efecto) del mundo (diagrama).
+  - Como buena práctica, recomendamos tener esta clasificación exclusiva:
+    - Si esperamos que un mensaje sea de consulta, que no tenga efecto.
+    - Si esperamos que un mensaje tenga efecto, que no devuelva nada.
+
+- Sintaxis (inline vs return)
+  - Métodos de consulta
+    - Inline (con el `=`): `method estaCansada() = energia < 50`
+    - Con llaves `{ }` y `return`: `method estaCansada() { return energia < 50 }`
+
+#### Extra simpático
+
+- Viendo el diagrama, volar lo necesario para que pepita quede con 70 de energía y _sorprenderse_ al vez que tanto `energia` como `gramos` apuntan al mismo objeto.
+
+
+## 4. Polimorfismo
+
+#### Preguntas gatillo
 
