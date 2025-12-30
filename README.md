@@ -9,7 +9,7 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
   - [¿Por qué Wollok?](por-que-wollok.md)
   - [Un poco de historia](historia-de-wollok.md)
   - [Objetivos de este manual](objetivos-del-manual.md)
-  - Paradigmas de Programación
+  - [Paradigmas de Programación](paradigmas-de-programacion.md)
 - Módulo 1: Objetos y Mensajes
   - Clase 1: [¡Hola Pepita!](inicio-pepita.md)
   - Clase 2: Polimorfismo
