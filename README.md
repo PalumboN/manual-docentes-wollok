@@ -31,5 +31,6 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
   - Clase 15: Manejando Excepciones propias
 - Módulo 5: Mixines?
 - Apéndices
+  - Aprender GIT
   - Ejercicios integradores
   - Evaluaciones teóricas
