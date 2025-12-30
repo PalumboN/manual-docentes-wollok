@@ -12,7 +12,7 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
   - Paradigmas de Programación
 - Módulo 1: Objetos y Mensajes
   - Clase 1: [¡Hola Pepita!](inicio-pepita.md)
-  - Clase 2: Polimorfismo vs Ifs
+  - Clase 2: Polimorfismo
   - Clase 3: Refactoring & Testing
   - Clase 4: ¿Lo guardo o lo calculo?
   - Clase 5: Bloques que mandan mensajes
