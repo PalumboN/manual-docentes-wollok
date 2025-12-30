@@ -144,6 +144,12 @@ _¡Recordá tener visible el diagrama, y de prestar atención a lo que pasa just
 ```
 <img width="450" height="329" alt="image" src="https://github.com/user-attachments/assets/6d6ac85e-a28f-4d37-b7a6-dda4ce8be9c0" />
 
+> [!NOTE]
+> Una posible pregunta al ver la transición en el diagrama es preguntarse: **¿dónde se fue el 100?**
+> Por ahora diremos que existe un _garbage collector_ (recolector de basura) que se encarga de llevarse los objetos que no están siendo usados.
+> Hablaremos más sobre garbage collector a lo largo del curso, sobre todo cuando lleguemos al tema _clases_.
+
+
 - Definición de `method vola(kms) { energia = energia - kms }`
   - El parámetro `kms` también es una _referencia_, que en `pepita.vola(10)` va a **apuntar** al 10.
   - El _objeto apuntado_ por `energia` (un número) se le manda el _mensaje_ `-` con el _objeto apuntado_ por `kms`.
