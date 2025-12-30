@@ -213,3 +213,18 @@ _Respuesta_: tiene que salir 2 cosas claves: meter un **nuevo objeto** `kiwi` qu
   - Ahora pepita puede comer kiwi, pero no tuvimos que tocar a pepita. Extendimos el programa agregando un nuevo _comportamiento_.
   - Los objetos contribuyen (intercambian mensajes) entre sí para producir distintos efectos: la energía aumenta distinta si se come la manzana o el alpiste.
   - Si conocen el `if`, no hay ninguno en nuestra solución.
+
+---
+
+# Ejercicios similares
+
+<details>
+<summary>Sobre gustos: https://github.com/wollok/objetosGustos</summary>
+Cosas que le gustan a distintas personas.
+</details>
+
+<details>
+<summary>Jugadores, personajes y elementos: https://github.com/wollok/juegoPersonajesElementos</summary>
+Juego con personajes y elementos.
+</details>
+
