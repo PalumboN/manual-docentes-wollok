@@ -234,3 +234,14 @@ Cosas que le gustan a distintas personas.
 Juego con personajes y elementos.
 </details>
 
+---
+
+# Wollok Game
+
+<details>
+<summary>Titanic: https://github.com/wollok/TitanicGame</summary>
+Intro a objetos contando la película de Titanic con Wollok Game.
+  
+#TODO armar un script para esta clase -> https://www.youtube.com/watch?v=KsagIzpa9Zs&list=PLD2HhVLe8swfrASREMvVy-DRuccfMUvFJ
+</details>
+
