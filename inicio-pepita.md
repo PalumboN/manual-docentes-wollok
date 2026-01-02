@@ -16,6 +16,13 @@ Nuestro favorito (e insignia de Wollok) es Pepita...
 - `method` (inline y asignación)
 - Envío de mensajes `.`
 
+### Apuntes teóricos
+1. [Objetos. Mensajes. Métodos.](https://docs.google.com/document/d/1RBfNmKZFKZ90XvfQsN7zhtuUPV2Mvj7t-iyZiL2bClQ/edit?usp=drive_web)
+1. [Referencias. Estado. Compartir objetos. Identidad.](https://docs.google.com/document/d/14092iRsXDXih8-q_0UEXIGRSQmGtxL9pay1VXX4ceJg/edit?usp=drive_web)
+1. [Introducción a Polimorfismo.](https://docs.google.com/document/d/1X7Sz12e7rbVO1x7uMD7ECjZnT-chELx0ElTPmNvNURU/edit?usp=drive_web)
+1. [Objetos básicos. Números. Strings. Fechas. (y más)](https://docs.google.com/document/d/1HiYxLswd4O0MBqnT3jGo2K9e_4FE73RXF_lf8NWVOSE/edit?usp=drive_web)
+
+
 ## Hola Pepita
 
 > #TODO: Buscar un repo con el ejercicio inicial: `vola(kms)` y `come(comida)`
