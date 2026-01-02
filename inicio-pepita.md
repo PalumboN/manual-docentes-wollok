@@ -170,6 +170,10 @@ _¡Recordá tener visible el diagrama, y de prestar atención a lo que pasa just
     - Si esperamos que un mensaje sea de consulta, que no tenga efecto.
     - Si esperamos que un mensaje tenga efecto, que no devuelva nada.
 
+- Encapsulamiento
+  - Cada objeto es dueño de sus atributos
+    - "Si queremos cambiar la energía de pepita, hay que pedírselo (órden) a pepita"
+
 - Sintaxis
   - Métodos de consulta
     - Inline (con el `=`): `method estaCansada() = energia < 50`
