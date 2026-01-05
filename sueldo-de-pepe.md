@@ -38,6 +38,8 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 Presentamos el principio del enunciado (pepe, categorías y bonos) y el primer requerimiento.
 Después se abre un nuevo proyecto en blanco para comenzar...
 
+# 1. Cómo encarar un ejercicio
+
 #### Preguntas gatillo
 
 > ¿Por dónde arrancamos?
@@ -73,3 +75,56 @@ Proponemos esta metodología porque:
   - Le perdemos el miedo a que nos explote un programa en la cara (práctica de _debugging_)
   - El requerimiento se resuelve cuando la consola deje de fallarnos (los errores guían el desarrollo)
 - En fin, propone una forma de trabajar **iterativa e incremental**
+
+# 2. Manos a la obra
+
+Ahora que tenemos un objetivo fijo:
+```bash
+> pepe.sueldoBase()
+1500
+```
+
+Lo probamos para ver los errores e ir resolviéndolos asta que el programa se comporte como esperamos.
+
+Si comenzamos con un archivo vacío:
+```wlk
+// pepe.wlk
+```
+
+Y con el archivo cargado probamos en la consola:
+```bash
+pepe> pepe.sueldoBase()
+✗ Evaluation Error!
+  wollok.lang.EvaluationError: Error: Could not resolve reference to pepe
+```
+
+Nos va a decir que no encuentra una referencia para `pepe`.
+Lo que tiene sentido, porque no definimos ningún objeto con ese nombre (de hecho, no definimos nada todavía).
+
+Así que definimos a pepe, en su forma más básica:
+```wlk
+// pepe.wlk
+
+object pepe { }
+```
+
+Y _volvemos a probar_. Para eso hay varias opciones:
+- Cerrar la consola actual y volver a levantarla :-1:
+- Recargar la consola con `:r` y volver a tirar el mensaje (buscar con al fecha arriba ⬆️) :+1_
+- **Recargar y re-ejecutar** todo con `:rr` 👌
+
+Vemos que ahora el mensaje de error cambió:
+```bash
+pepe> pepe.sueldoBase()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: pepe does not understand sueldoBase()
+```
+
+Diciendo que el objeto `pepe` (¡que ahora sí existe!) _no entiende el mensaje `sueldoBase()`_.
+
+También ya lo podemos ver en el diagrama dinámico:
+
+<img width="298" height="225" alt="image" src="https://github.com/user-attachments/assets/09997c00-3a92-4214-bf69-614c71ea212c" />
+
+#### ¡Bien! Vamos avanzando
+
