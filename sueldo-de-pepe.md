@@ -13,7 +13,9 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
     1. ¿Cuál es el _requerimiento_?
     1. _¿Qué mensaje le voy a enviar a qué objeto (y con qué parámetros)?_
         - [TDD](https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas) en la consola
+        - _Perderle el miedo_ a que el programa explote (errores)
     1. ¿Método de _acción o consulta_?
+    1. Implementación
 
 ### Elementos del lenguaje
 - `self`
