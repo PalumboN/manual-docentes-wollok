@@ -6,7 +6,7 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 ### Objetivos de esta clase
 1. Plantear una solución a un ejercicio aprovechando el _polimorfismo_ 
 1. Conceptos de _modelado_
-    1. 3 formas de _conocer un objeto_: global, atrobuto o parámetro
+    1. 3 formas de _conocer un objeto_: global, atributo o parámetro
     1. Decidir si _"me lo guardo o lo recibo?"_
     1. Objetos que representan cosas más abstractas (a.k.a _objetos chetardos_)
 1. _Metodología_ propuesta
@@ -17,6 +17,7 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 
 ### Elementos del lenguaje
 - `self`
+- `if`
 - `property`
 - Comandos de la consola: `:r` `:rr`
 
@@ -34,6 +35,10 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 > Pasar por la hoja en blanco?
 > Requerimiento de sueldo base?
 > O directamente el sueldo con bonos?
+>
+> 1. Hacer que pepe cambie de categoría (property)
+> 2. Conocer el sueldo base de pepe (polimorfismo)
+> 3. Conocer el sueldo (final) de pepe contemplando los posibles bonos (self)
 
 Presentamos el principio del enunciado (pepe, categorías y bonos) y el primer requerimiento.
 Después se abre un nuevo proyecto en blanco para comenzar...
@@ -65,6 +70,11 @@ Esta es la metodología que vamos a usar para resolver los ejercicios en toda la
       - Si es acción, _¿qué esperamos que pase?_
       - Si es conuslta, _¿qué esperamos que devuelva?_
     - _Respuesta:_ Es de consulta y para un Pepe gerente esperamos que devuelva `1500`
+1. **Implementación**
+    - Codear lo necesario para que el ejemplo se comporte como esperamos
+    - Pensar si hay más ejemplos para tener en cuenta
+      - Implementar lo necesario para el nuevo ejemplo si es necesario
+1. Repetir hasta terminar el ejercicio - **Iterar**
 
 Proponemos esta metodología porque:
 - Focaliza en una parte del problema (y por el momento nos olvidamos del resto)
