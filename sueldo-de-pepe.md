@@ -51,7 +51,7 @@ Después se abre un nuevo proyecto en blanco para comenzar...
 
 > ¿Por dónde arrancamos?
 
-Después de hacer un pequeño debate para entrar en calor con el ejercicio y los conceptos básicos de objetos, proponemos nuestra metodología.
+Después de hacer un pequeño debate para entrar en calor con el ejercicio y repasar los conceptos básicos de objetos, proponemos nuestra metodología.
 
 ### Metodología para encarar un ejercicio
 
@@ -62,8 +62,9 @@ Esta es la metodología que vamos a usar para resolver los ejercicios en toda la
     - _Respuesta:_ Calcular el sueldo base de pepe
 1. ¿**Qué mensaje** vamos a enviar a qué objeto (y con qué parámetros)?
     - Pensamos primero en _cómo vamos a usar_ los objetos (pensar en el _mensaje_ antes que en el _método_)
-    - Acá puede salir varias posibilidades, está bueno anotarlas todas para después definir. En ejercicios simples puede que la primero o más natural sea la mejor, pero a medida que la complejidad incremente puede no ser tan obvio.
-    - _Respuesta:_ `pepe.sueldoBase()`
+    - Armar una lista de _objetos candidatos_, si es necesario
+    - Acá puede salir varias posibilidades, está bueno anotarlas todas para después definir
+    - _Respuesta:_ `pepe.cambiarCategoria(gerente)`
 1. Escribimos un **ejemplo concreto** del mensaje
     - Lo escribimos en la consola. _Sí, ¡antes de escribir el código!_
     - Vemos que todo rompe porque no está implementado, pero _¡no nos asustamos!_
@@ -71,7 +72,7 @@ Esta es la metodología que vamos a usar para resolver los ejercicios en toda la
     - Este es ¿un mensaje de acción o de consulta?
       - Si es acción, _¿qué esperamos que pase?_
       - Si es conuslta, _¿qué esperamos que devuelva?_
-    - _Respuesta:_ Es de consulta y para un Pepe gerente esperamos que devuelva `1500`
+    - _Respuesta:_ Es de acción, Pepe debe cambiar su categoría de cadete a gerente.
 1. **Implementación**
     - Codear lo necesario para que el ejemplo se comporte como esperamos
     - Pensar si hay más ejemplos para tener en cuenta
@@ -92,11 +93,13 @@ Proponemos esta metodología porque:
 
 Ahora que tenemos un objetivo fijo:
 ```bash
-> pepe.sueldoBase()
-1500
+> pepe.cambiarCategoria(gerente)
+✓
 ```
 
-Lo probamos para ver los errores e ir resolviéndolos asta que el programa se comporte como esperamos.
+> ¿Y qué tipo de objeto es `gerente`? ¿Un String o un objeto nuestro? Guiar la solución para definir los objetos `pepe`, `cadete` y `gerente` desde el principio.
+
+Lo probamos para ver los errores e ir resolviéndolos hasta que el programa se comporte como esperamos.
 
 Si comenzamos con un archivo vacío:
 ```wlk
@@ -105,25 +108,143 @@ Si comenzamos con un archivo vacío:
 
 Y con el archivo cargado probamos en la consola:
 ```bash
-pepe> pepe.sueldoBase()
-✗ Evaluation Error!
-  wollok.lang.EvaluationError: Error: Could not resolve reference to pepe
+pepe> pepe.cambiarCategoria(gerente)
+✗ Unknown reference gerente
 ```
 
-Nos va a decir que no encuentra una referencia para `pepe`.
+Vemos que nos dice que no encuentra una referencia para `gerente`.
 Lo que tiene sentido, porque no definimos ningún objeto con ese nombre (de hecho, no definimos nada todavía).
 
-Así que definimos a pepe, en su forma más básica:
+Así que definimos un objeto que represente al gerente, en su forma más básica:
 ```wlk
 // pepe.wlk
 
-object pepe { }
+object gerente { }
 ```
 
 Y _volvemos a probar_. Para eso hay varias opciones:
 - Cerrar la consola actual y volver a levantarla :-1:
 - Recargar la consola con `:r` y volver a tirar el mensaje (buscar con al fecha arriba ⬆️) :+1_
 - **Recargar y re-ejecutar** todo con `:rr` 👌
+
+Vemos que ahora el mensaje de error cambió:
+```bash
+pepe> pepe.cambiarCategoria(gerente)
+✗ Evaluation Error!
+  wollok.lang.EvaluationError: Error: Could not resolve reference to pepe
+```
+
+Ahora, como es de esperar, falta `pepe`. Volvemos a hacer lo mismo, definiendo un objeto:
+
+```wlk
+// pepe.wlk
+
+object pepe { }
+
+object gerente { }
+```
+
+Con esto, ya tenemos los objetos que necesitamos definidos, y los podemos ver en el diagrama dinámico:
+
+<img width="405" height="270" alt="image" src="https://github.com/user-attachments/assets/d59a4b9b-7975-43cc-9596-293255f43884" />
+
+Así que _volvemos a probar_ en la consola. (Hay que meterles el **hábito** de la metodología).
+
+```bash
+pepe> pepe.cambiarCategoria(gerente)
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: pepe does not understand cambiarCategoria(arg 0)
+```
+
+Ahora el error nos dice que _pepe no entiende el mensaje `cambiarCategoria(arg 0)`_.
+
+#### Acá se pone interesante...
+
+#### Preguntas gatillo
+
+> ¿Qué significa que pepe no entienda el mensaje?
+
+_Respuesta:_ que no tiene definido ningún método con la _firma_ `cambiarCategoria/1`. (El `/1` es una forma de anotar que es un método que espera 1 parámetro. Se puede tener métodos con el mismo nombre y distinta cantidad de parámetros, pero no vamos a entrar en eso ahora).
+
+Así que debemos **definir un método** `method cambiarCategoria(unaCategoria)` en `pepe`.
+
+Y, como habíamos dicho, este debe ser un **método de acción**.
+O sea, debe cambiar algo, pero no devolver nada...
+
+> ¿Qué cosa debe cambiar este método?
+
+_Respuesta:_ la categoría de pepe.
+
+El problema es que ahora pepe no tiene nada, es un objeto vacío.
+Así que una decisión acá es decir que el objeto `pepe` tiene que conocer a otro objeto como su categoría, o sea, que va a tener un **atributo `cateogria`**.
+
+"Cambiar algo" en objetos es mover (_asignar_) un atributo, lo que sería re-apuntar una flecha en el diagrama dinámico.
+Sin embargo, nuestro programa todavía no tiene ninguna flecha.
+
+Pero no desesperemos, sigamos firme con la metodología: escribamos cómo sería el método, y veamos los errores.
+
+```wlk
+// pepe.wlk
+
+object pepe { 
+
+    method cambiarCategoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+}
+
+object gerente { }
+```
+
+Ya con escribir ese código nos sale un error de que el programa tiene una _referencia desconocida_:
+
+<img width="634" height="310" alt="image" src="https://github.com/user-attachments/assets/1edd1092-a2b3-4c46-8859-175369095c52" />
+
+Eso es porque falta definirle el atributo `var categoria`
+
+```wlk
+// pepe.wlk
+
+object pepe { 
+
+    var categoria
+
+    method cambiarCategoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+}
+
+object gerente { }
+```
+
+Ahora vemos que el error anterior desapareció pero aparece uno nuevo en la definición del atributo:
+
+<img width="634" height="357" alt="image" src="https://github.com/user-attachments/assets/b969b22c-4a18-484b-ab7f-2bf95f161af7" />
+
+
+
+
+
+
+## Propiedades - Métodos que no se escriben
+
+
+
+
+
+# 3. Segundo requerimiento
+
+<img width="210" height="190" alt="image" src="https://github.com/user-attachments/assets/60336cd7-92dd-4342-a4ca-a4f98ee9ee84" />
+
+
+Ahora que tenemos un objetivo fijo:
+```bash
+> pepe.sueldoBase()
+1500
+```
+
 
 Vemos que ahora el mensaje de error cambió:
 ```bash
