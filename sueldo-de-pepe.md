@@ -38,7 +38,7 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 > Requerimiento de sueldo base?
 > O directamente el sueldo con bonos?
 >
-> 1. Hacer que pepe cambie de categoría (property)
+> 1. Hacer que pepe cambie de categoría (property). Comienza en cadete pero puede cambiar a gerente, y volver a cadete, en cualquier momento.
 > 2. Conocer el sueldo base de pepe (polimorfismo)
 > 3. Conocer el sueldo (final) de pepe contemplando los posibles bonos (self)
 
@@ -201,6 +201,8 @@ Ya con escribir ese código nos sale un error de que el programa tiene una _refe
 
 <img width="634" height="310" alt="image" src="https://github.com/user-attachments/assets/1edd1092-a2b3-4c46-8859-175369095c52" />
 
+O sea, el programa no sabe lo que significa el `categoria` a la izquierda de la asignación.
+
 Eso es porque falta definirle el atributo `var categoria`
 
 ```wlk
@@ -219,18 +221,56 @@ object pepe {
 object gerente { }
 ```
 
-Ahora vemos que el error anterior desapareció pero aparece uno nuevo en la definición del atributo:
+Ahora vemos que el error anterior desapareció pero aparece uno nuevo en la definición del atributo, diciendo que _los atributos de los objetos deben ser inicializados_:
 
 <img width="634" height="357" alt="image" src="https://github.com/user-attachments/assets/b969b22c-4a18-484b-ab7f-2bf95f161af7" />
 
+Esto es porque **una referencia siempre debe apuntar a un objeto**, y no puede nunca estar apuntando a "la nada".
+
+Acá Wollok se está dando cuenta que al iniciar el programa el atributo `categoria` no tiene nada asignado, por ende no va a estar apuntando a ningún objeto.
+
+> Wollok fuerza a tener siempre objetos "listo para usarse", y considera que si no tiene un atributo inicializado entonces el objeto no va a poder funcionar como se espera. En Wollok existe el `null`, pero no lo vamos a ver ahora.
+
+Por suerte, el enunciado nos aclara que pepe siempre comienza siendo cadete.
+
+#### Preguntas gatillo
+
+> ¿Cómo hacemos para que pepe comienza siendo cadete?
+
+_Respuesta:_ hay que **crear un nuevo objeto** `cadete` e **inicializar el atributo** `categoria` con él.
 
 
+Al final el código queda:
 
+```wlk
+object pepe { 
+
+    var categoria = cadete
+
+    method cambiarCategoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+}
+
+object cadete { }
+
+object gerente { }
+```
+
+Y _volvemos a probar en la consola_:
+
+![Screen Recording 2026-01-12 at 17 10 44](https://github.com/user-attachments/assets/2b039980-c8b1-4074-b3e6-e44b3120f6be)
+
+Vemos que pepe comienza apuntando a `cadete` como su categoría, y lo podemos cambiar a `gerente`.
+También podemos volver a la categoría de `cadete` si le mandamos este por parámetro al mensaje `cambiarCategoria`.
+
+### ¡Excelente! Primer punto completado.
 
 
 ## Propiedades - Métodos que no se escriben
 
-
+#TODO
 
 
 
