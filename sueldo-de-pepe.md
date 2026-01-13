@@ -4,6 +4,7 @@ En esta clase vamos a resolver un ejercicio aprovechando el _polimorfismo_.
 Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 
 ### Objetivos de esta clase
+1. Repaso de los conceptos básicos vistos: objeto, referencia, mensaje (consulta o acción), método, atributo, asignación
 1. Plantear una solución a un ejercicio aprovechando el _polimorfismo_ 
 1. Conceptos de _modelado_
     1. 3 formas de _conocer un objeto_: global, atributo o parámetro
@@ -265,12 +266,160 @@ Y _volvemos a probar en la consola_:
 Vemos que pepe comienza apuntando a `cadete` como su categoría, y lo podemos cambiar a `gerente`.
 También podemos volver a la categoría de `cadete` si le mandamos este por parámetro al mensaje `cambiarCategoria`.
 
-### ¡Excelente! Primer punto completado.
+### ¡Excelente! Primer punto completado 🚀
+
 
 
 ## Propiedades - Métodos que no se escriben
 
+**Paramos la pelota** para meter algo de teoría sobre lo que tenemos...
+
+- El **enunciado** nos dice que Pepe puede ser cadete o genrente, y nos pide poder configurar su categoría en cualquier momento
+- Para **modelar** eso
+    - creamos **3 objetos**: `pepe`, `cadete` y `gerente`
+        > círculos en el diagrama dinámico
+    - y un **atributo** en `pepe` que _apunta a alguno de los otros 2 objetos_: `categoria`
+        > flecha en el diagrama dinámico
+- Para poder **cambiar el atributo** de `pepe`: apuntar la flecha `categoria`
+    - hay que enviarle un mensaje a `pepe`, por ejemplo: `pepe.cambiarCategoria(gerente)`
+        - Esto se conoce como **encapsulamiento**
+           > cada objeto es "dueño" de sus atributos y solo ellos pueden _acceder_ a él, tanto para leerlo como para asignarlo.
+    - y `pepe` debe implementar un método que asigne la nueva categoría:
+```wlk
+    method cambiarCategoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+```
+
+### Setters y Getters
+
+> Como el paradigma de objetos propone tener _objetos encapsulados_, o sea, cada uno maneja su estado interno (atributos), los métodos que solo cambian o retornan algún atributo son **muy comunes** en los programas.
+
+Vamos a jugar un poco con el código: 
+1. Abrimos una **nueva sesión** de la consola 
+1. **Cerramos** el diagrama dinámico (en realidad conviene solo ocultarlo, para poder verlo rápido durante la explicación)
+1. Y le cambiamos la categoría a Pepe
+
+```bash
+pepe> pepe.cambiarCategoria(gerente)
+✓ 
+```
+
+#### Preguntas gatillo
+
+> Si no vemos el diagrama ¿cómo sabemos que Pepe cambió de su categoría?
+
+_Respuesta:_ hay que _mandarle un mensaje_ preguntándole su categoría: `pepe.obtenerCategoria()`
+
+> ¿Ese es un mensaje de acción o consulta?
+
+_Respuesta:_ consulta. _Debe retornar_ su categoría, o sea, el objeto apuntado por su atributo
+
+Acá podemos mostrar el diagrama rápidamente para entender que queremos retornar el objeto apuntado (y no un string u otra cosa que lo represente).
+
+También podemos evaluar directamente esos objetos para que se entienda:
+
+```bash
+pepe> cadete
+✓ cadete
+pepe> gerente
+✓ gerente
+```
+
+Pero si lo consultamos ahora nos da un error diciendo que _no entiende el mensaje_:
+
+```bash
+pepe> pepe.obtenerCategoria()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: pepe does not understand obtenerCategoria()
+```
+
+**Repasamos cómo seguir** a partir de acá:
+
+- No entiende el mensaje porque no implementa un método
+- Hay que definir un método en el objeto `pepe` que se llame `obtenerCategoria/0`
+- Ese método debe retornar el atributo `categoria`
+
+Lo escribimos (acá solo se presenta el código de `pepe`, el resto queda igual)
+
+```wlk
+object pepe { 
+
+    var categoria = cadete
+
+    method cambiarCategoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+    method obtenerCategoria() = categoria
+
+}
+```
+
+
+(podría ser su versión con `{ return ... }`)
+
+Y reevaluamos todo con `:rr` y vemos que ya no explota nada.
+
+Ahora podemos intercalar los _cambiar_ y _obtener_ (podemos limpiar la consola con `ctrl + k` o `ctrl + l` o algo similar):
+
+```bash
+pepe> pepe.cambiarCategoria(cadete)
+✓ 
+pepe> pepe.obtenerCategoria()
+✓ cadete
+pepe> pepe.cambiarCategoria(gerente)
+✓ 
+pepe> pepe.obtenerCategoria()
+✓ gerente
+```
+
+Acá explicamos cómo se conocen (por sus nombres en inglés) estos métodos:
+
+- El método que cambia un atributo por un parámetro se conocen como _setter_: `cambiarCategoria/1`, `cambiarEnergia/1`, `cambiarAlgo/1`
+- El método que retorna un atributo (y no tiene parámetros) se conocen como _getter_: `obtenerCategoria/0`, `obtenerEnergia/0`, `obtenerAlgo/0`
+- Los lenguajes de programación (y su comunidad) generalmente definen una forma para el nombre de estos métodos
+    - por ej: `setCategoria/1` y `getCategoria/0`
+    - esto se conoce como **convención**: una forma de nombrar algún elemento del programa en el que _se ponen de acuerdo la comunidad_
+
+La convención de Wollok para los getters y setters es con el mismo nombre del atributo (sin prefijo): `categoria/1` y `categoria/0`
+
+**Modificamos el código**:
+
+```wlk
+object pepe { 
+
+    var categoria = cadete
+
+    method categoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+    method categoria() = categoria
+
+}
+```
+
+Levantamos una nueva **consola** y volvemos a hacer las consultas con los nuevos nombres:
+
+```bash
+pepe> pepe.categoria(gerente)
+✓ 
+pepe> pepe.categoria()
+✓ gerente
+pepe> pepe.categoria(cadete)
+✓ 
+pepe> pepe.categoria()
+✓ cadete
+```
+
+#### Atención
+
+Resaltar que ahora en el código de pepe hay _3 cosas **distintas**_ que se llaman "categoria":
+
 #TODO
+
+### Posibles discusiones
 
 
 
@@ -278,7 +427,7 @@ También podemos volver a la categoría de `cadete` si le mandamos este por par�
 
 <img width="210" height="190" alt="image" src="https://github.com/user-attachments/assets/60336cd7-92dd-4342-a4ca-a4f98ee9ee84" />
 
-
+#TODO
 Ahora que tenemos un objetivo fijo:
 ```bash
 > pepe.sueldoBase()
