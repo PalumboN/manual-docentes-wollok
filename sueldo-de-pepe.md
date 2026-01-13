@@ -272,7 +272,7 @@ También podemos volver a la categoría de `cadete` si le mandamos este por par�
 
 ## Propiedades - Métodos que no se escriben
 
-**Paramos la pelota** para meter algo de teoría sobre lo que tenemos...
+⚽ **Paramos la pelota** para meter algo de teoría sobre lo que tenemos...
 
 - El **enunciado** nos dice que Pepe puede ser cadete o genrente, y nos pide poder configurar su categoría en cualquier momento
 - Para **modelar** eso
@@ -665,4 +665,16 @@ pepe> pepe.sueldoBase()
 
 ### Polimorfismo de Categorías
 
-Paramos la pelota nuevamente para analizar lo que hicimos...
+⚽ **Paramos la pelota** nuevamente para analizar lo que hicimos...
+
+La clave de este punto está en _cómo calculamos el monto extra en base a la categoría_:
+
+```wlk
+method sueldoBase() = 1000 + categoria.extra()
+```
+
+#TODO
+
+**Delegación** y **Responsabilidad**
+
+**Polimorfismo**
