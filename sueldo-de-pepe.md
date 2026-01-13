@@ -417,36 +417,252 @@ pepe> pepe.categoria()
 
 Resaltar que ahora en el código de pepe hay _3 cosas **distintas**_ que se llaman "categoria":
 
-#TODO
+1. Definición del _atributo_: `var categoria`
+1. Método _setter_: `method categoria(unaCategoria)`
+1. Método _getter_: `method categoria()`
+
+- Los atributos y métodos se definen y usan de forma distintas
+    - Los atributos se definen con `var` o `const`, mientras que los métodos con `method`
+    - Los atributos se usan como cualquier referencia, mientras que los métodos a través de envios de mensajes (después de un `.`)
+- Los getter y setter tienen distinta firma, debido a sus parámetros
+    - Los getters no esperan parámetro y son de consulta: `categoria/0`
+    - Los setters esperan el nuevo objeto y son de acción: `categoria/1`
+    - Como tienen distintos parámetros, se invoca uno u otro método en base a los parámetros que tiene el mensaje
+
+
+### Atributos `property`
+
+Como estos métodos son comunes en los lenguajes orientado a objetos, muchos traen una forma de declararlos fácilmente.
+
+En Wollok, se puede usar el modificador `property` en la definición de un atributo para crear sus getters y setters.
+
+El código de `pepe` quedaría así (dejo la versión con comentarios para los estudiantes, pero se sugiere probarlo sin los métodos escritos para que se entienda cómo funciona):
+
+```wlk
+object pepe { 
+
+    var property categoria = "asd."
+
+/*
+Este código se crea con el "property" del atributo categoria
+
+Está comentado para recordar lo que hace, pero no hace falta escribirlos
+
+GETTER:
+    method categoria(unaCategoria) {
+        categoria = unaCategoria
+    }
+
+SETTER:
+    method categoria() = categoria
+*/
+}
+```
+
+Y repetimos las consultas para probar que anda (probar es **siempre** mucho muy importante):
+
+```bash
+pepe> :rr
+✓ Reloading environment
+pepe> pepe.categoria(gerente)
+✓ 
+pepe> pepe.categoria()
+✓ gerente
+pepe> pepe.categoria(cadete)
+✓ 
+pepe> pepe.categoria()
+✓ cadete
+```
+
 
 ### Posibles discusiones
+
+- `var property` vs `const property`
+- ¿Qué pasa si escribo un método getter o setter usando `property`?
+- Ahora tengo un getter y antes no, ¿es eso mejor?
+
+
+## Código final del primer punto
+
+El código final para el primer punto queda en estas pocas líneas
+
+```wlk
+object pepe { 
+
+    var property categoria = cadete
+
+}
+
+object cadete { }
+
+object gerente { }
+```
+
+Continuemos con el siguiente...
 
 
 
 # 3. Segundo requerimiento
 
+Ahora que ya conocemos la metodología, vamos a aplicarla para el segundo punto...
+
 <img width="210" height="190" alt="image" src="https://github.com/user-attachments/assets/60336cd7-92dd-4342-a4ca-a4f98ee9ee84" />
 
-#TODO
-Ahora que tenemos un objetivo fijo:
+> ¿Cuál es el requerimiento?
+
+_Respuesta:_ conocer el sueldo base de pepe
+
+> ¿Qué mensaje le vamos a enviar a qué objeto?
+
+_Respuesta:_ `pepe.sueldoBase()`
+
+> ¿Es de acción o de consulta?
+
+_Respuesta:_ de consulta
+
+> Ejemplo de consulta
+
+_Respuesta:_ siendo cadete esperaríamos
+
 ```bash
 > pepe.sueldoBase()
 1500
 ```
 
+#### Comenzamos
 
-Vemos que ahora el mensaje de error cambió:
+Probamos la consulta en la **consola**
+
 ```bash
 pepe> pepe.sueldoBase()
 ✗ Evaluation Error!
-  wollok.lang.MessageNotUnderstoodException: pepe does not understand sueldoBase()
+  wollok.lang.MessageNotUnderstoodExcegption: pepe does not understand sueldoBase()
 ```
 
-Diciendo que el objeto `pepe` (¡que ahora sí existe!) _no entiende el mensaje `sueldoBase()`_.
+Y **leemos** el error: _pepe no entiende el mensaje `sueldoBase()`_
 
-También ya lo podemos ver en el diagrama dinámico:
+> ¿Cómo se soluciona?
 
-<img width="298" height="225" alt="image" src="https://github.com/user-attachments/assets/09997c00-3a92-4214-bf69-614c71ea212c" />
+_Respuesta:_ implementando el método (de consulta) en `pepe`
 
-#### ¡Bien! Vamos avanzando
+El enunciado dice que el sueldo base es siempre
+- 1000
+- más un extra dependiendo de la categoría
+    - 500 para cadete
+    - 1500 para gerente
 
+Escribimos la parte fácil:
+
+```wlk
+object pepe { 
+
+    var property categoria = cadete
+
+    method sueldoBase() = 1000 + ...
+
+}
+```
+
+#### Preguntas gatillo
+
+> ¿Cómo calculamos el extra de la categoría?
+
+_Respuesta:_ si el extra _depende_ de la categoría, **¡lo mejor es preguntárselo a ella!**
+
+```wlk
+method sueldoBase() = 1000 + categoria.extra()
+```
+
+Terminamos de escribir el método y **volvemos a probar**:
+
+```wlk
+pepe> :rr
+✓ Reloading environment
+pepe> pepe.sueldoBase()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: cadete does not understand extra()
+    at pepe.pepe.sueldoBase() [pepe.wlk:5]
+```
+
+Ahora nos dice que _cadete no entiende el mensaje `extra()`_
+
+También nos muestra el _stack trace_, o sea, dónde se produjo el error: `[pepe.wlk:5]` (con `ctrl + click` nos navega al método que envía el mensaje)
+
+> ¿Cómo se soluciona?
+
+_Respuesta:_ implementando el método en el objeto `cadete`
+
+> ¿Es de acción o de consulta?
+
+_Respuesta:_ consulta. Debería retornar `500`
+
+Lo escribimos
+
+```wlk
+object cadete { 
+    method extra() = 500
+}
+```
+
+Y volvemos a probar
+
+```bash
+pepe> :rr
+✓ Reloading environment
+pepe> pepe.sueldoBase()
+✓ 1500
+```
+
+### ¡Funciona! ¡Bravo!
+
+#### Preguntas gatillo
+
+> ¿Ya terminamos?
+
+_Respuesta:_ no. Todavía falta probar siendo gerente.
+
+Pensar todos los casos de prueba es algo _importante_ que queremos ejercitar y lo vamos a estar practicando la clase que viene
+
+> ¿Y cómo probamos ese caso?
+
+_Respuesta:_ hay que cambiarle la categoria a gerente y preguntarle el sueldo base
+
+```bash
+pepe> pepe.categoria(gerente)
+✓ 
+pepe> pepe.sueldoBase()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: gerente does not understand extra()
+    at pepe.pepe.sueldoBase() [pepe.wlk:5]
+```
+
+Nos dice que _gerente no entiende el mensaje `extra()`_. 
+¡Que bueno! que probamos este caso, nos falta implementar parte del código aún.
+
+Implementamos el método que falta:
+
+```wlk
+object gerente { 
+    method extra() = 1500
+}
+```
+
+Y **volvemos a probar** todo
+
+```bash
+pepe> :rr
+✓ Reloading environment
+pepe> pepe.sueldoBase()
+✓ 1500
+pepe> pepe.categoria(gerente)
+✓ 
+pepe> pepe.sueldoBase()
+✓ 2500
+```
+
+#### ¡Genial! Ahora sí ya terminamos
+
+
+### Polimorfismo de Categorías
+
+Paramos la pelota nuevamente para analizar lo que hicimos...
