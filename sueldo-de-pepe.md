@@ -663,7 +663,7 @@ pepe> pepe.sueldoBase()
 #### ¡Genial! Ahora sí ya terminamos
 
 
-### Polimorfismo de Categorías
+## Polimorfismo de Categorías
 
 ⚽ **Paramos la pelota** nuevamente para analizar lo que hicimos...
 
@@ -673,8 +673,25 @@ La clave de este punto está en _cómo calculamos el monto extra en base a la ca
 method sueldoBase() = 1000 + categoria.extra()
 ```
 
+- **Ignorancia**: Para calcular el sueldo base, pepe _**no** pregunta qué categoría tiene_
+    > No pregunto quién es, directamente pido lo que necesito
+
+- **Delegación**: En vez de eso, delega la responsabilidad de "calcular" el extra en la categoría mandándole directamente un mensaje
+    > Si el extra depende de la categoría, lo mejor es preguntarle a ella
+
+- **Responsabilidad**: Es responsabilidad de cada categoría el saber cuál es su extra (en base a quién representa el objeto)
+    > ¿Quién tiene la responsabilidad de... (calcular el extra)?
+
+#### Polimorfismo
+
+Todas esas ideas se combinan para diseñar una solución con _polimorfismo_, uno de los pilares de la programación orientada a objetos
+
+La clave está en que **`pepe` usa indistintamente a cualquiera de sus categorías**
+
 #TODO
+- Bajo acoplamiento
+- Extensividad
+- Interfaz
 
-**Delegación** y **Responsabilidad**
 
-**Polimorfismo**
+# 4. Último requerimiento
