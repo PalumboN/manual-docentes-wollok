@@ -688,10 +688,47 @@ Todas esas ideas se combinan para diseñar una solución con _polimorfismo_, uno
 
 La clave está en que **`pepe` usa indistintamente a cualquiera de sus categorías**
 
-#TODO
-- Bajo acoplamiento
-- Extensividad
-- Interfaz
+Beneficios de este diseño:
+
+- _Bajo acoplamiento_: `pepe` no sabe cómo funcionan las categorías por dentro, las categorías tampoco saben lo que hace `pepe`. Solamente se comunican a través de un _contrato_ que es el mensaje `categoria.extra()`
+- _Extensividad_: es "fácil" entender cómo agregar más categorías (siempre que entiendan el mensaje `extra/0`, pero sino también es "fácil" adaptar el mensaje a lo que se necesite)
+
+#### Interfaz
+
+> Hablamos mucho sobre "categorías" pero nunca escribimos una definición sobre eso. Definimos a `gerente` y `cadete`, pero nada relacionado con "categoría". (El único lugar es el nombre del atributo en `pepe`, lo que habla bien sobre nuestra _expresividad_)
+
+Podemos decir que **la `categoria` es cómo `pepe` conoce al objeto a cual preguntarle el `extra`**.
+Este conjunto de mensajes por el cual un objeto se comunica con otro se llama **interfaz**
+
+> En este programa, la interfaz `categoria` está constituída solamente por el mensaje `extra/0`
 
 
 # 4. Último requerimiento
+
+
+> ¿Cuál es el requerimiento?
+
+_Respuesta:_ conocer el sueldo (final) de pepe teniendo en cuenta su contrato
+
+> ¿Qué mensaje le vamos a enviar a qué objeto?
+
+_Respuesta:_ `pepe.sueldo()`
+
+> ¿Es de acción o de consulta?
+
+_Respuesta:_ de consulta
+
+> Ejemplo de consulta (comenzando por lo más fácil)
+
+_Respuesta:_ siendo cadete (1500) y con un contrato básico (1000) esperaríamos
+
+```bash
+> pepe.sueldoBase()
+2500
+```
+
+#### "Yo mismo"
+
+- Básico: introducir objeto.mensaje() usando self
+- Porcentual: pasar self por parámetro (discutir sobre el sueldo base). Introducir el `if`?
+- Presentismo: quién se guarda las faltas?
