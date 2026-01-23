@@ -1,4 +1,4 @@
-# Polimorfismo
+<img width="710" height="337" alt="image" src="https://github.com/user-attachments/assets/45bf0608-bf4b-4cd5-9f55-031aba9efdd4" /># Polimorfismo
 
 En esta clase vamos a resolver un ejercicio aprovechando el _polimorfismo_.
 Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
@@ -723,12 +723,200 @@ _Respuesta:_ de consulta
 _Respuesta:_ siendo cadete (1500) y con un contrato básico (1000) esperaríamos
 
 ```bash
-> pepe.sueldoBase()
+> pepe.sueldo()
 2500
 ```
 
-#### "Yo mismo"
+Lo escribimos en la consola para tener el ya conocido error de _no entiende el mensaje_ y ponernos a codear...
 
-- Básico: introducir objeto.mensaje() usando self
-- Porcentual: pasar self por parámetro (discutir sobre el sueldo base). Introducir el `if`?
+## "Yo mismo"
+
+Este punto tiene como objetivo introducir la referencia de todo objeto a sí mismo: `self`
+
+Sin embargo, podemos hacer una solución con las herramientas ya presentadas:
+
+```wlk
+object pepe { 
+
+    var property categoria = cadete
+
+    method sueldo() = pepe.sueldoBase()
+
+    method sueldoBase() = 1000 + categoria.extra()
+
+}
+```
+
+Y, como siempre, lo probamos:
+
+```bash
+pepe> :rr
+✓ Reloading environment
+> pepe.sueldo()
+1500
+```
+
+#### Funciona!
+
+Igual el IDE está avisando de algo:
+
+<img width="508" height="244" alt="image" src="https://github.com/user-attachments/assets/8579ac3b-4e11-4baf-9d72-97e837a7eafc" />
+
+### Presentar `self`
+
+> Es una referencia que conocen todos los objetos y que apunta a sí mismos
+
+Cambiar el código para arreglar el aviso y **probar que la consola se sigue comportando igual**
+
+```wlk
+method sueldo() = self.sueldoBase()
+```
+
+En el diagrama dinámico, las referencias a `self` no aparecen, pero podemos _forzarlas_ definiendo un atributo (`yoMismo`) inicializado en `self` en _todos los objetos_
+
+```wlk
+object pepe { 
+    const yoMismo = self
+
+    var property categoria = cadete
+
+    method sueldo() = self.sueldoBase()
+
+    method sueldoBase() = 1000 + categoria.extra()
+
+}
+
+object cadete { 
+    const yoMismo = self
+
+    method extra() = 500
+}
+
+object gerente { 
+    const yoMismo = self
+
+    method extra() = 1500
+}
+```
+
+<img width="532" height="160" alt="image" src="https://github.com/user-attachments/assets/d417acd2-2949-4220-a7d3-fa2f9ce4dda4" />
+
+Acá se visualiza:
+
+- El **"rulo"** que significa una referencia a "sí mismo"
+- En un programa prueden existir **muchos atributos con el mismo nombre**, siempre que _salgan_ de objetos distintos
+- En el código, la paralabra `self` significa algo distinto **depende en qué objeto esté escrito**
+
+Comentar (o borrar) los atributos `yoMismo` para seguir con el ejercicio
+
+### Posibles discusiones
+
+Algunas aristas que puede tomar esta clase y tocan conceptos importantes
+
+<details>
+<summary>Repetir código</summary>
+
+Este punto se puede solucionar sin `self` copy-pasteando la definición de `sueldoBase()`
+
+```wlk
+method sueldo() = 1000 + categoria.extra()
+
+method sueldoBase() = 1000 + categoria.extra()
+```
+
+Vamos a **evitar repetir lógica** a toda costa, y fomentar soluciones con **reutilización de lógica**
+
+> Si ya existe un componente (método) que resuelve parte de mi problema, lo mejor es aprovecharlo
+
+</details>
+
+<details>
+<summary>Romper el requerimiento anterior</summary>
+
+También se podría _renombrar_ el método anterior para que se llame `sueldo()` y continuar desde ahí (de esa forma se evita el código repetido)
+
+```wlk
+method sueldo() = 1000 + categoria.extra()
+```
+
+Hacer notar que esto rompe con el requierimiento anterior, y que además es contraproducente: **perdemos una abstracción que ya existe**
+
+</details>
+
+<details>
+<summary>Romper la sintaxis</summary>
+
+Un error común al comenzar la POO es _olvidarse el receptor_ de un mensaje
+
+```wlk
+method sueldo() = sueldoBase()
+
+method sueldoBase() = 1000 + categoria.extra()
+```
+
+Esto marca un error en el IDE
+
+<img width="543" height="109" alt="image" src="https://github.com/user-attachments/assets/a07c5611-3765-4e15-a606-9655018a8dc2" />
+
+Aún así es bueno recordar que en este paradigma (puro), todas las computaciones suceden a partir de enviar un mensaje.
+
+> Un mensaje siempre tiene (necesita de) un **objeto** receptor: `objeto.mensaje()`
+
+</details>
+
+
+## Segundo polimorfismo
+
+#### Volver a al problema
+
+Esperábamos que nos diera 
+
+```bash
+> pepe.sueldo()
+2500
+```
+
+Pero ahora nos da
+
+```bash
+pepe> :rr
+✓ Reloading environment
+> pepe.sueldo()
+1500
+```
+
+#### _Hardcodear_ una solución
+
+> Si al resultado le falta 1000, se lo sumamos...
+
+```wlk
+method sueldo() = self.sueldoBase() + 1000
+```
+
+Y probamos
+
+```bash
+pepe> :rr
+✓ Reloading environment
+> pepe.sueldo()
+2500
+```
+
+#### Excelente...
+
+o bueno, no tanto...
+
+
+### Los contratos
+
+- Básico: Seguir la estrategia de las categorías
+
+### ¿A quién paso por parámetro?
+
+- Porcentual: pasar self por parámetro (discutir sobre el sueldo base)
+- Pasar por referencia: no hay objetos más pesados que otros
+
+
+### Diseñar es tomar decisiones
+
 - Presentismo: quién se guarda las faltas?
