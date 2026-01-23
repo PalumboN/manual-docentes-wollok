@@ -1,4 +1,4 @@
-<img width="710" height="337" alt="image" src="https://github.com/user-attachments/assets/45bf0608-bf4b-4cd5-9f55-031aba9efdd4" /># Polimorfismo
+# Polimorfismo
 
 En esta clase vamos a resolver un ejercicio aprovechando el _polimorfismo_.
 Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
