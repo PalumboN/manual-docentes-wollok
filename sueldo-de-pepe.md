@@ -39,9 +39,14 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 > Requerimiento de sueldo base?
 > O directamente el sueldo con bonos?
 >
+> El sistema debe ser extensible para nuevos empleados, nuevas categorías de trabajo, y nuevos contratos en el futuro
+> 
 > 1. Hacer que pepe cambie de categoría (property). Comienza en cadete pero puede cambiar a gerente, y volver a cadete, en cualquier momento.
 > 2. Conocer el sueldo base de pepe (polimorfismo)
-> 3. Conocer el sueldo (final) de pepe contemplando los posibles bonos (self)
+> 3. Conocer el sueldo (final) de pepe contemplando los posibles contratos
+>         - Básico: es siempre de 1000
+>         - Porcentual: es el 15 porciento del sueldo base del empleado
+>         - Presentismo: Si el empleado no tuvo faltas es de 5000. Si tuvo 5 faltas o más, es de 500. En otro caso, es igual al sueldo base
 
 Presentamos el principio del enunciado (pepe, categorías y bonos) y el primer requerimiento.
 Después se abre un nuevo proyecto en blanco para comenzar...
@@ -904,14 +909,140 @@ pepe> :rr
 
 #### Excelente...
 
-o bueno, no tanto...
+> o bueno, no tanto... esta implementación fue para salir del paso, pero no _resuelve_ el enunciado
 
 
 ### Los contratos
 
-- Básico: Seguir la estrategia de las categorías
+Acá buscamos introducir a los distintos _contratos_ de forma **similar a las _categorías_**
 
-### ¿A quién paso por parámetro?
+- Entender que Pepe debe estar _asociado_ a una de los contratos: básico, porcentual o presentismo
+- Se debe poder _elegir (configurar)_ qué contrato tiene Pepe
+- El sueldo se debe _calcular a partir del contrato_ (y categoría) configurado(a)
+
+Para eso 
+
+1. Definimos **3 nuevos objetos**
+
+```wlk
+object basico {
+
+}
+
+object porcentual {
+    
+}
+
+object presentismo {
+    
+}
+```
+
+2. Agregamos un **nuevo atributo** en `pepe`
+
+```wlk
+var property contrato = basico
+```
+
+3. Le **mandamos un mensaje** al `contrato` para calcular el sueldo
+
+```wlk
+method sueldo() = self.sueldoBase() + contrato.remuneracion()
+```
+
+Probamos qué onda
+
+```bash
+pepe> :rr
+✓ Reloading environment
+> pepe.sueldo()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: basico does not understand remuneracion()
+    at pepe.pepe.sueldo() [pepe.wlk:5]
+```
+
+Y **leemos el error**
+
+> `basico` no entiende el mensaje `remuneracion()`
+
+> ¿Es de acción o de consulta?
+
+_Respuesta:_ de consulta
+
+Implementamos el método con el código necesario para que la prueba funcione como antes
+
+```wlk
+object basico {
+    method remuneracion() = 1000
+}
+```
+
+Y probamos
+
+```bash
+pepe> :rr
+✓ Reloading environment
+> pepe.sueldo()
+2500
+```
+
+#### Al repetir estos pasos buscamos
+
+- que se adopte la _metodología_ de trabajo
+- fortalecer el diseño que aprovecha el _polimorfismo_
+- mostrar cómo el programa crece de forma _iterativa e incremental_
+
+
+### Porcentual, ¿nos conocemos?
+
+> Una vez implementado el contrato más fácil, continuamos con el siguiente: `porcentual`
+
+Este punto plantea **el problema de cómo el `porcentual` conoce a `pepe`**
+
+El objetivo es introducir las 3 formas de conocer un objeto desde otro:
+- global: la referencia está _hardcodeada_ en el código
+- atributo: la referencia está en un _atributo del objeto_
+- paramétrico: la referencia viene por _parámetro_
+
+Comenzamos a implementar el método 
+
+#### Global
+
+La primera forma de implementar este punto suele ser la _global_
+
+```wlk
+object porcentual {
+    const porcentaje = 15
+    method remuneracion() = pepe.sueldoBase() * porcentaje / 100
+}
+```
+
+Probamos, configurando a `pepe` antes
+
+```bash
+pepe> pepe.contrato(porcentual)
+✓ 
+pepe> pepe.sueldo()
+✓ 1725
+```
+
+Joya!
+
+Además vemos cómo queda el diagrama
+
+<img width="726" height="325" alt="image" src="https://github.com/user-attachments/assets/de7960af-dae0-4e2a-9bb1-613ecc3dba7b" />
+
+Marcamos algunas características de esta solución:
+- Referencias unilaterales
+- La referencia está en el código del método
+
+
+#### Atributo
+
+
+#### Parámetro
+
+
 
 - Porcentual: pasar self por parámetro (discutir sobre el sueldo base)
 - Pasar por referencia: no hay objetos más pesados que otros
