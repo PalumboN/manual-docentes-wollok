@@ -1033,11 +1033,41 @@ Además vemos cómo queda el diagrama
 <img width="726" height="325" alt="image" src="https://github.com/user-attachments/assets/de7960af-dae0-4e2a-9bb1-613ecc3dba7b" />
 
 Marcamos algunas características de esta solución:
-- Referencias unilaterales
-- La referencia está en el código del método
 
+- La referencia está _hardcodeada_ en el código del método, lo que significa que no se puede cambiar sin reestructurar el código
+    > El objeto `porcentual` solo funciona para `pepe`
+
+- Eso genera una _dependencia implícita_ de un objeto a otro: no hay flecha en el diagrama  (de `porcentual` hacia `pepe`) ni en la firma del método
+
+- _Recordamos_ que las referencias son "flechas direccionadas" que tienen un sentido (desde el objeto que la tiene hacia el que apunta)
+    > La referencia `contrato` le permite a `pepe` mandarle mensajes a `porcentual`, pero no al revés
 
 #### Atributo
+
+Bueno, si la referencia a `pepe` _hardcodeada_ en el método molesta, entonces agreguemos otro atributo en `porcentual`
+
+```wlk
+object porcentual {
+    const porcentaje = 15
+    const empleado = pepe
+
+    method remuneracion() = empleado.sueldoBase() * porcentaje / 100
+}
+```
+
+Así la dependencia queda evidente en el diagrama
+
+<img width="760" height="310" alt="image" src="https://github.com/user-attachments/assets/a06c5ed8-17e5-4534-88e6-14c499cc0f2e" />
+
+
+Y todo sigue funcionando como esperábamos
+
+```bash
+pepe> pepe.contrato(porcentual)
+✓ 
+pepe> pepe.sueldo()
+✓ 1725
+```
 
 
 #### Parámetro
@@ -1051,3 +1081,20 @@ Marcamos algunas características de esta solución:
 ### Diseñar es tomar decisiones
 
 - Presentismo: quién se guarda las faltas?
+
+
+# 5. Conclusiones
+
+## PolimorfismoS
+
+- Hay 2 polimorfismos acá
+
+## Objetos _chetardos_
+
+- Empezamos a modelar cosas más abstractas
+
+## Pruebas
+
+- Estuvimos full probando en la consola
+- Durante el desarrollo
+- Incluso lo probábamos antes de que el método se implemente: TDD
