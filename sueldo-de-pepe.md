@@ -1044,7 +1044,7 @@ Marcamos algunas características de esta solución:
 
 #### Atributo
 
-Bueno, si la referencia a `pepe` _hardcodeada_ en el método molesta, entonces agreguemos otro atributo en `porcentual`
+Si la referencia a `pepe` _hardcodeada_ en el método molesta, entonces agreguemos otro atributo en `porcentual`
 
 ```wlk
 object porcentual {
@@ -1069,13 +1069,100 @@ pepe> pepe.sueldo()
 ✓ 1725
 ```
 
+Características de esta solución:
+
+- La referencia de `porcentual` hacia `pepe` es explícita y tiene un nombre: `empleado` 👍
+
+- Si bien ahora es un atributo constante, podríamos cambiar el programa para que sea variable y apunte a otro posible empleado
+
+- Este modelo propone un par de _referencias circulares_ entre `contrato` y `empleado`. Esto no es un problema _per se_, pero hay que tener cuidado: armar y romper estos vínculos implican cambiar dos referencias, con una no basta (podría dejar el un estado inconsistente)
+
 
 #### Parámetro
 
+Como última solución (y con la que nos vamos a quedar para este ejercicio) es pasar al empleado por parámetro:
+
+```wlk
+object porcentual {
+    const porcentaje = 15
+
+    method remuneracion(empleado) = empleado.sueldoBase() * porcentaje / 100
+}
+```
+
+A diferencia de las otras dos opciones, esta variante cambia la firma del mensaje que `pepe` debe mandarle a su `contrato`
+
+```bash
+wollok:pepe> :rr
+✓ Reloading environment
+wollok:pepe> pepe.contrato(porcentual)
+✓ 
+wollok:pepe> pepe.sueldo()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: porcentual does not understand remuneracion()
+    at pepe.pepe.sueldo() [pepe.wlk:5]
+```
+
+> `remuneracion()` sin parámetros y `remuneracion(empleado)` con parámetro tienen distinta firma, o sea que responden a mensajes distintos.
+> Uno es _remuneracion/0_ y el otro _remuneracion/1_
+
+Ajustamos el mensaje en el método `sueldo()`:
+
+```wlk
+method sueldo() = self.sueldoBase() + contrato.remuneracion(self)
+```
+
+**Atención** que esta es la primera vez que mandamos `self` por parámetro
+
+> Llamar la atención a esto y recordar que es una referencia al propio objeto
+
+Probar que ahora la solución vuelve a funcionar
+
+```bash
+wollok:pepe> :rr
+✓ Reloading environment
+wollok:pepe> pepe.contrato(porcentual)
+✓ 
+wollok:pepe> pepe.sueldo()
+✓ 1725
+```
+
+#### Bien! Perooo, anda todo o rompimos algo que ya andaba?
+
+> Tuvimos que tocar el código de `pepe`. 
+> Cómo podemos saber que no rompimos algo que ya estaba funcionando?
+
+#TODO
 
 
-- Porcentual: pasar self por parámetro (discutir sobre el sueldo base)
+<details>
+<summary>Y por qué no mandamos el sueldo base?</summary>
+
+Otra variante que puede surgir es mandar por parámetro directamente el sueldo base
+
+```wlk
+object porcentual {
+    const porcentaje = 15
+
+    method remuneracion(sueldoBase) = sueldoBase * porcentaje / 100
+}
+```
+
+Y que el mensaje se mande en el código del método `sueldo()`
+
+```wlk
+    method sueldo() {
+        const base = self.sueldoBase() 
+        return base + contrato.remuneracion(base)
+    }
+```
+
+#### Esta también es una solución válida
+
+#TODO
 - Pasar por referencia: no hay objetos más pesados que otros
+</details>
+
 
 
 ### Diseñar es tomar decisiones
