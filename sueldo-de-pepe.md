@@ -1127,12 +1127,6 @@ wollok:pepe> pepe.sueldo()
 ✓ 1725
 ```
 
-#### Bien! Perooo, anda todo o rompimos algo que ya andaba?
-
-> Tuvimos que tocar el código de `pepe`. 
-> Cómo podemos saber que no rompimos algo que ya estaba funcionando?
-
-#TODO
 
 
 <details>
@@ -1159,29 +1153,153 @@ Y que el mensaje se mande en el código del método `sueldo()`
 
 #### Esta también es una solución válida
 
-#TODO
-- Pasar por referencia: no hay objetos más pesados que otros
+Por detalles del ejercicio vamos a continuar pasando todo el empleado
+
+Algunos posibles comentarios oportunos:
+
+- Tanto el empleado como el sueldo base son objetos que se pasan por referencia: no hay objetos más pesados que otros
+
+- Pepe sabe contestar más cosas que un número, por ejemplo su sueldo base
+
+- Pasar el número evita que el contrato tenga que enviarle mensajes a pepe, eso reduce el _acoplamiento_
+
 </details>
 
 
 
+### Bien! Perooo, anda todo o rompimos algo que ya andaba?
+
+> Tuvimos que tocar el código de `pepe`. 
+> Cómo podemos saber que no rompimos algo que ya estaba funcionando?
+
+Esto es algo en lo que haremos foco la próxima clase: _testing_.
+
+Por ahora decimos que, **ante cada cambio, hay que probar todos los casos**.
+
+> Sí, todos.
+> Cuáles son?
+
+_Respuesta:_ 2 categorías * 3 contratos = 6 configuraciones posibles. O sea que _al menos_ 6.
+
+Acá se recomienda armar una sesión de consola con las 6 configuraciones y ver qué responde el programa (incluso sabiendo que todavía no codeamos el contrato por presentismo) y no cerrarla para poder jugar con el código y hacer `:rr`.
+
+#TODO: Abrir un issue para que el `:rr` se frene ante un error (y pregunte si continuar / reiniciar / abortar)
+
+#### El caso interesante es calcular el sueldo de pepe con el _contrato básico_, ya que rompimos el contrato (mensaje) que había entre los dos objetos.
+
+```bash
+pepe> pepe.contrato(basico)
+✓ 
+pepe> pepe.sueldo()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: basico does not understand remuneracion(arg 0)
+    at pepe.pepe.sueldo() [pepe.wlk:5]
+```
+
+> Rompimos el _polimorfismo_ de los contratos 👎
+> Qué hacemos?
+
+Bueno, una solución sencilla es cambiar el método en `basico` para que reciba un parámetro que no usa:
+
+```wlk
+object basico {
+    method remuneracion(empleado) = 1000
+}
+```
+
+Mostrar que esto puede pasar, y si bien recibir parámetros que no se usan no es lo mejor, favorece una solución polimórfica, lo que sí es bueno.
+
+
 ### Diseñar es tomar decisiones
 
-- Presentismo: quién se guarda las faltas?
+De las pruebas anteriores llegamos al presentismo:
 
+```bash
+pepe> pepe.contrato(presentismo)
+✓ 
+pepe> pepe.sueldo()
+✗ Evaluation Error!
+  wollok.lang.MessageNotUnderstoodException: presentismo does not understand remuneracion(arg 0)
+    at pepe.pepe.sueldo() [pepe.wlk:5]
+```
+
+A estas alturas, ya debería salir fácil que debemos implementar un método en `presentismo`
+
+```wlk
+object presentismo { 
+    method remuneracion(empleado) = ...
+}
+```
+
+Pero acá sale una pregunta importante:
+
+#### Quién tiene la responsibilidad de saber la cantidad de faltas?
+
+_Respuesta:_ Una primera intuición puede que nos diga el empleado. Pero esa información también podría estar en el mismo objeto `presentismo`
+
+#### El modelo (de objetos) NO es la _realidad_
+
+Para demostrar que si bien la realidad nos intuye a pensar de una forma, pero que nosotros podemos elejir cómo modelarla, vamos a ponerlo en el `presentismo`
+
+```wlk
+object presentismo { 
+    var property faltas = 0
+
+    method remuneracion(empleado) = empleado.sueldoBase() - faltas
+}
+```
+
+Y probar que funciona:
+
+```bash
+pepe> :rr
+✓ Reloading environment
+pepe> pepe.contrato(presentismo)
+✓ 
+pepe> pepe.sueldo()
+✓ 3000
+```
+
+> Mmmm... hay más casos para probar? 🤔
+
+_Respuesta:_ estaría bueno probar algún caso con faltas
+
+```bash
+pepe> presentismo.faltas(1)
+✓ 
+pepe> pepe.sueldo()
+✓ 2900
+```
+
+Prestar atención a que, para probar el caso de pepe con una falta, hay que configurar el objeto `presentismo`, y no hace falta pasar por `pepe` para eso
+
+> En un programa de objetos, los objetos colaboran entre ellos para llegar al resultado. **No hay objetos más importantes que otros**
+
+_También se puede mostrar la variante donde las faltas la tenga `pepe` y mostrar cómo se usaría ese modelado_.
 
 # 5. Conclusiones
 
+Una vez terminado el ejercicio, hacemos un resumen de lo que aprendimos
+
 ## PolimorfismoS
 
-- Hay 2 polimorfismos acá
+- El paradigma de objetos sale beneficiado con soluciones polimórficas
+- Hay 2 polimorfismos acá: categorías y contratos
+    - Es `pepe` quién los usa polimórficamente (importante!)
+
+#TODO: Poner el gif de las cómo pepe cambia de categorías y contratos. Mostrar el sueldo.
 
 ## Objetos _chetardos_
 
-- Empezamos a modelar cosas más abstractas
+- Comenzamos modelando a pepe que es un empleado (algo tangible)
+- Luego modelamos cosas más abstractas
+    - Objetos que representan categorías o contratos
+    - No tienen una contrapartida en la realidad
+- El modelo NO es la realidad
 
 ## Pruebas
 
-- Estuvimos full probando en la consola
-- Durante el desarrollo
-- Incluso lo probábamos antes de que el método se implemente: TDD
+- La importancia de probar todos los casos posibles
+- El _testing_ lo hacemos durante el desarrollo
+- Incluso escribíamos la prueba antes que la implementación: TDD
+- Sin embargo, la consola se queda corta para esto, la clase que viene vamos a ver algo más profesional: _tests automatizados_
