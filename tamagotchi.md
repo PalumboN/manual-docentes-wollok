@@ -1,0 +1,3 @@
+- Traer el ejercicio del Tamagotchi codeado con `ifs`
+- Escribir los casos de prueba
+- Cambiar el código para que use polimorfismo
