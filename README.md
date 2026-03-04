@@ -11,10 +11,10 @@ Esta es una recopilación de varios cursos dictados en distintas **universidades
   - [Objetivos de este manual](objetivos-del-manual.md)
   - [Paradigmas de Programación](paradigmas-de-programacion.md)
 - **Módulo 1: Objetos y Mensajes**
-  - Clase 1: [¡Hola Pepita!](inicio-pepita.md)
-  - Clase 2: [Polimorfismo](sueldo-de-pepe.md)
-  - Clase 3: [Refactoring & Testing](tamagotchi.md)
-  - Clase 4: [¿Lo guardo o lo calculo?](cuentas-de-susana.md)
+  - Clase 1: [¡Hola Pepita!](clases/inicio-pepita.md)
+  - Clase 2: [Polimorfismo](clases/sueldo-de-pepe.md)
+  - Clase 3: [Refactoring & Testing](clases/tamagotchi.md)
+  - Clase 4: [¿Lo guardo o lo calculo?](clases/cuentas-de-susana.md)
 - **Módulo 2: Nuevos Objetos**
   - Clase 6: Listas y Conjuntos
   - Clase 5: Bloques
