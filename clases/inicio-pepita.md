@@ -15,6 +15,7 @@ Nuestro favorito (e insignia de Wollok) es Pepita...
 - `var` y `const`
 - `method` (inline y asignación)
 - Envío de mensajes `.`
+- Levantar un REPL con la consola
 
 ### Apuntes teóricos
 1. [Objetos. Mensajes. Métodos.](https://docs.google.com/document/d/1RBfNmKZFKZ90XvfQsN7zhtuUPV2Mvj7t-iyZiL2bClQ/edit?usp=drive_web)

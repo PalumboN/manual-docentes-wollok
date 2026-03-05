@@ -20,7 +20,6 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 
 ### Elementos del lenguaje
 - `self`
-- `if`
 - `property`
 - Comandos de la consola: `:r` `:rr`
 
