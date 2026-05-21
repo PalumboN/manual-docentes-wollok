@@ -3,7 +3,7 @@
 En esta clase vamos a resolver un ejercicio aprovechando el _polimorfismo_.
 Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 
-### Objetivos de esta clase
+## Objetivos de esta clase
 1. Repaso de los conceptos básicos vistos: objeto, referencia, mensaje (consulta o acción), método, atributo, asignación
 1. Plantear una solución a un ejercicio aprovechando el _polimorfismo_ 
 1. Conceptos de _modelado_
@@ -18,19 +18,19 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
     1. ¿Método de _acción o consulta_?
     1. Implementación
 
-### Elementos del lenguaje
+## Elementos del lenguaje
 - `self`
 - `property`
 - Comandos de la consola: `:r` `:rr`
 
-### Apuntes teóricos
+## Apuntes teóricos
 1. [Referencias. Estado. Compartir objetos. Identidad.](https://docs.google.com/document/d/14092iRsXDXih8-q_0UEXIGRSQmGtxL9pay1VXX4ceJg/edit?usp=drive_web)
 1. [Introducción a Polimorfismo.](https://docs.google.com/document/d/1X7Sz12e7rbVO1x7uMD7ECjZnT-chELx0ElTPmNvNURU/edit?usp=drive_web)
 1. [Atributos como Propiedades.](https://docs.google.com/document/d/1wziW1YY-t94UUAUApydrt-OZ5roq1uY6DT6FduwNGx0/edit?usp=drive_web)
 
 ----
 
-# El Sueldo de Pepe
+## El Sueldo de Pepe
 
 > #TODO Ver qué versión del sueldo de pepe usar como enunciado...
 > Código inicial (con las categorías y métodos en blanco de pepe)?
@@ -50,7 +50,7 @@ Veamos todos los objetos involucrados en calcular el sueldo de Pepe...
 Presentamos el principio del enunciado (pepe, categorías y bonos) y el primer requerimiento.
 Después se abre un nuevo proyecto en blanco para comenzar...
 
-# 1. Cómo encarar un ejercicio
+## 1. Cómo encarar un ejercicio
 
 #### Preguntas gatillo
 
@@ -94,7 +94,7 @@ Proponemos esta metodología porque:
   - El requerimiento se resuelve cuando la consola deje de fallarnos (los errores guían el desarrollo)
 - En fin, propone una forma de trabajar **iterativa e incremental**
 
-# 2. Manos a la obra
+## 2. Manos a la obra
 
 Ahora que tenemos un objetivo fijo:
 ```bash
@@ -506,7 +506,7 @@ Continuemos con el siguiente...
 
 
 
-# 3. Segundo requerimiento
+## 3. Segundo requerimiento
 
 Ahora que ya conocemos la metodología, vamos a aplicarla para el segundo punto...
 
@@ -707,7 +707,7 @@ Este conjunto de mensajes por el cual un objeto se comunica con otro se llama **
 > En este programa, la interfaz `categoria` está constituída solamente por el mensaje `extra/0`
 
 
-# 4. Último requerimiento
+## 4. Último requerimiento
 
 
 > ¿Cuál es el requerimiento?
@@ -1276,7 +1276,7 @@ Prestar atención a que, para probar el caso de pepe con una falta, hay que conf
 
 _También se puede mostrar la variante donde las faltas la tenga `pepe` y mostrar cómo se usaría ese modelado_.
 
-# 5. Conclusiones
+## 5. Conclusiones
 
 Una vez terminado el ejercicio, hacemos un resumen de lo que aprendimos
 

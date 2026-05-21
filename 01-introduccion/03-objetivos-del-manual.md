@@ -15,7 +15,7 @@ Para cada clase, se presenta:
 
 ## ¿Por qué un manual para docentes?
 
-Wollok [nace como una herramienta](historia-de-wollok.md) para facilitar una propuesta didáctica al introducir la programación orientada a objetos.
+Wollok [nace como una herramienta](02-historia-de-wollok.md) para facilitar una propuesta didáctica al introducir la programación orientada a objetos.
 La idea es [posponer el concepto de clases](https://dl.acm.org/doi/abs/10.1145/3341525.3387369) y comenzar programando objetos simples para incorporar los conceptos de objeto, mensaje, polimorfismo y encapsulamiento.
 
 Los primeros docentes que comenzamos a enseñar con Wollok ya veníamos con estas ideas, por lo que fue natural aprovechar (y darle forma) a la herramienta en nuestras clases.

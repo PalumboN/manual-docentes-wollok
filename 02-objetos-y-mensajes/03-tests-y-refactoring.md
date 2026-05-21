@@ -3,7 +3,7 @@
 Esta clase plantea una solución _poco objetosa_ a un ejercicio.
 El objetivo es primero _testearla_ codeando pruebas automatizadas y luego _refactorizarla_ aprovechando las ideas del paradigma.
 
-### Objetivos de esta clase
+## Objetivos de esta clase
 1. _Comparar soluciones_ más algorítimicas vs más objetosas
 1. _Formalizar las pruebas_ del programa
     1. Pasar de la consola al código con `tests`
@@ -13,19 +13,19 @@ El objetivo es primero _testearla_ codeando pruebas automatizadas y luego _refac
     1. El testing forma parte del desarrollo
 1. Se puede _mejorar_ el diseño sin cambiar la funcionalidad
 
-### Elementos del lenguaje
+## Elementos del lenguaje
 - `if`
 - `null`
 - Ejercutar tests por consola
 
-### Apuntes teóricos
+## Apuntes teóricos
 1. [Introducción al testeo unitario automatizado.](https://docs.google.com/document/d/1Q_v48gZfRmVfLMvC0PBpmtZyMoALbh11AwmEllP__eY/edit?usp=drive_web)
 
 ----
 
-# Tamagotchi
+## Tamagotchi
 
-![Tamagotchi](image.png)
+![Tamagotchi](tamagotchi.png)
 
 Los _Tamagotchi_ son mascotas virtuales que tuvieron su pico de popularidad en los 2000.
 Se trataban de aparatos que venían con un bichito que te demandaba cuidado.
@@ -55,7 +55,7 @@ Se plantea una solución que modela el estado de ánimo con un string (nullable)
 
 #### Leer el código en conjunto para entender los `if`
 
-# 1. Pruebas automatizadas
+## 1. Pruebas automatizadas
 
 #### Preguntas gatillo
 
