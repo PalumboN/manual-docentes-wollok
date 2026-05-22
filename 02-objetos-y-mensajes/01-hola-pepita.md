@@ -1,30 +1,30 @@
-# Arrancamos...
+# Hola Pepita
 
 Luego de instalar Wollok, y antes de explicar cualquier concepto, presentamos un ejercicio básico.
 Nuestro favorito (e insignia de Wollok) es Pepita...
 
-### Objetivos de esta clase
+## Objetivos de esta clase
 
 1. Tener una imagen visual de _objetos_ y _referencias_ por medio del _diagrama dinámico_
 1. Mandar _mensajes_ que se diferencian entre _acciones_ y _consultas_
 1. Concepto de _asignación_ como "apuntar una referencia"
 1. Introducir un objeto _polimórfico_
 
-### Elementos del lenguaje
+## Elementos del lenguaje
 - `object`
 - `var` y `const`
 - `method` (inline y asignación)
 - Envío de mensajes `.`
 - Levantar un REPL con la consola
 
-### Apuntes teóricos
+## Apuntes teóricos
 1. [Objetos. Mensajes. Métodos.](https://docs.google.com/document/d/1RBfNmKZFKZ90XvfQsN7zhtuUPV2Mvj7t-iyZiL2bClQ/edit?usp=drive_web)
 1. [Referencias. Estado. Compartir objetos. Identidad.](https://docs.google.com/document/d/14092iRsXDXih8-q_0UEXIGRSQmGtxL9pay1VXX4ceJg/edit?usp=drive_web)
 1. [Introducción a Polimorfismo.](https://docs.google.com/document/d/1X7Sz12e7rbVO1x7uMD7ECjZnT-chELx0ElTPmNvNURU/edit?usp=drive_web)
 1. [Objetos básicos. Números. Strings. Fechas. (y más)](https://docs.google.com/document/d/1HiYxLswd4O0MBqnT3jGo2K9e_4FE73RXF_lf8NWVOSE/edit?usp=drive_web)
 
 
-## Hola Pepita
+## Presentación del ejercicio
 
 > #TODO: Buscar un repo con el ejercicio inicial: `vola(kms)` y `come(comida)`
 
@@ -234,7 +234,7 @@ _Respuesta_: tiene que salir 2 cosas claves: meter un **nuevo objeto** `kiwi` qu
 
 ---
 
-# Ejercicios similares
+## Ejercicios similares
 
 <details>
 <summary>Sobre gustos: https://github.com/wollok/objetosGustos</summary>
@@ -248,7 +248,7 @@ Juego con personajes y elementos.
 
 ---
 
-# Wollok Game
+## Wollok Game
 
 <details>
 <summary>Titanic: https://github.com/wollok/TitanicGame</summary>
@@ -256,4 +256,3 @@ Intro a objetos contando la película de Titanic con Wollok Game.
   
 #TODO armar un script para esta clase -> https://www.youtube.com/watch?v=KsagIzpa9Zs&list=PLD2HhVLe8swfrASREMvVy-DRuccfMUvFJ
 </details>
-
