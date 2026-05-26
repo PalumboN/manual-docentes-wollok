@@ -1,0 +1,66 @@
+# =============================================================================
+# COPY THIS FILE TO YOUR BOOK REPOSITORY
+# Location: <your-book-repo>/.github/workflows/notify-bookops.yml
+#
+# Required setup in your book repository:
+#
+#   Secrets (Settings → Secrets and variables → Actions → Secrets):
+#     BOOKOPS_DISPATCH_TOKEN - Token provided by BookOps admin
+#                              (allows triggering extraction workflows)
+#
+#   Variables (Settings → Secrets and variables → Actions → Variables):
+#     BOOKOPS_REPO - BookOps repository path (e.g., "owner/bookops")
+#     BOOK_SLUG    - Your book's identifier (e.g., "manual-docentes-wollok")
+#                    Must match the slug configured in BookOps
+# =============================================================================
+
+name: Notify BookOps of book changes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.md'
+      - '**.png'
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.gif'
+      - '**.svg'
+      - '**.webp'
+      - '**.wlk'
+      - '.github/workflows/notify-bookops.yml'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger BookOps extraction
+        run: |
+          set -euo pipefail
+
+          payload="$(
+            jq -n \
+              --arg book_slug "${{ vars.BOOK_SLUG }}" \
+              --arg repository "${{ github.repository }}" \
+              --arg sha "${{ github.sha }}" \
+              --arg ref "${{ github.ref }}" \
+              --arg message "${{ github.event.head_commit.message || '' }}" \
+              '{
+                event_type: "book-updated",
+                client_payload: {
+                  book_slug: $book_slug,
+                  repository: $repository,
+                  sha: $sha,
+                  ref: $ref,
+                  message: $message
+                }
+              }'
+          )"
+
+          curl --fail-with-body -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.BOOKOPS_DISPATCH_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ vars.BOOKOPS_REPO }}/dispatches" \
+            -d "$payload"
+          echo "✓ Triggered BookOps extraction for ${{ vars.BOOK_SLUG }} (commit ${{ github.sha }})"
